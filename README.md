@@ -111,6 +111,45 @@ The pool was deployed at block **`48119143`** — the lower bound for scanning `
 
 ---
 
+## SDK — `@maskedusd/protocol`
+
+This repository ships a tiny, dependency-free package that exposes the live addresses and ABIs, so integrators don't have to copy-paste them. The ABIs are human-readable strings, directly compatible with [viem](https://viem.sh)'s `parseAbi`.
+
+```bash
+npm install @maskedusd/protocol
+```
+
+```ts
+import { ADDRESSES, ABIS, CHAIN, explorerAddress } from "@maskedusd/protocol";
+import { createPublicClient, http, parseAbi } from "viem";
+import { base } from "viem/chains";
+
+const client = createPublicClient({ chain: base, transport: http() });
+
+// Read total $USDM supply (public dollar surface)
+const supply = await client.readContract({
+  address: ADDRESSES.usdm,
+  abi: parseAbi(ABIS.erc20),
+  functionName: "totalSupply",
+});
+
+// Verify the 1:1 backing invariant holds on-chain
+const backing = await client.readContract({
+  address: ADDRESSES.vault,
+  abi: parseAbi(ABIS.vault),
+  functionName: "totalBacking",
+});
+
+console.log("backed 1:1:", backing >= supply, explorerAddress(ADDRESSES.vault));
+console.log("chain:", CHAIN.id); // 8453 (Base)
+```
+
+Exports: `CHAIN`, `ADDRESSES`, `ABIS` (`erc20` · `mintRamp` · `redeemRamp` · `vault` · `shieldedPool` · `noteMemo`), `TOKEN_DECIMALS`, `explorerAddress()`, `explorerTx()`.
+
+> Always verify addresses against Basescan before sending value — trust addresses, not names.
+
+---
+
 ## Privacy model
 
 Funds inside the shielded pool are **notes (UTXOs)**, not account balances.
