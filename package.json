@@ -1,0 +1,49 @@
+{
+  "name": "@maskedusd/protocol",
+  "version": "1.0.0",
+  "description": "Deployed addresses and ABIs for the MaskedUSD protocol on Base — the immutable, non-custodial private dollar ($USDM).",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "README.md",
+    "ARCHITECTURE.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "keywords": [
+    "maskedusd",
+    "usdm",
+    "base",
+    "stablecoin",
+    "privacy",
+    "zero-knowledge",
+    "shielded",
+    "ethereum",
+    "viem",
+    "web3"
+  ],
+  "author": "MaskedUSD",
+  "homepage": "https://www.maskedusd.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maskedusd/MaskedUSD-Protocol.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maskedusd/MaskedUSD-Protocol/issues"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}
